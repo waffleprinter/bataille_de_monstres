@@ -45,11 +45,28 @@ while True:
                  number_of_losses += 1
                  consecutive_wins = 0
                  recent_battle_status = "Defeat"
-                 print(f"Niveau de vie: {health}."
+                 print(f"Niveau de vie: {health}.")
                        if health <= 0
-                           print(f"La partie est terminée, vous avez vaincu {number_of_wins} monstre(s)."
+                           print(f"La partie est terminée, vous avez vaincu {number_of_wins} monstre(s).")
                            default_stats()
                        else:
                            continue
-              
-          
+    elif answer == 2:
+        health -= 1
+        print(f"Niveau de vie: {health}.")
+     
+    elif answer == 3:
+        print("Pour réussir un combat, il faut que la valeur du dé lancé soit
+               supérieure à la force de l’adversaire.  Dans ce cas, le niveau
+               de vie de l’usager est augmenté de la force de l’adversaire.
+               Une défaite a lieu lorsque la valeur du dé lancé par l’usager
+               est inférieure ou égale à la force de l’adversaire.  Dans ce
+               cas, le niveau de vie de l’usager est diminué de la force de
+               l’adversaire."
+              "La partie se termine lorsque les points de vie de l’usager
+               tombent sous 0."
+              "L’usager peut combattre ou éviter chaque adversaire, dans le
+               cas de l’évitement, il y a une pénalité de 1 point de vie.")
+    else:
+        print("Merci et au revoir")
+        break
