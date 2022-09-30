@@ -6,7 +6,7 @@ class Player:
     battles_won = 0
     battles_lost = 0
     
-    def reset():
+    def reset(self):
         health = 20
         battles_won = 0
         battles_lost = 0
