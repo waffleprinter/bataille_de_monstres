@@ -5,7 +5,7 @@ class Player:
     health = 20
     fights_won = 0
     fights_lost = 0
-
+        
 
 class Monster:
     def __init__(self, strength=None):
@@ -13,6 +13,7 @@ class Monster:
 
     def new_monster(self, strength=None):
         self.strength = strength if strength else random.randint(1, 5)
+
 
 def encounter_monster():
     print(f"Vous tombez face à face avec un adversaire de difficulté {monster.strength}")
@@ -56,9 +57,18 @@ def list_rules():
 def quit_game():
     print("Merci et au revoir...")
 
+    
+def reset_game():
+    player.health = 20
+    player.fights_won = 0
+    player.fights_lost = 0
+    
 
 player = Player()
 monster = Monster()
 
+while player.health > 0:
+    encounter_monster()
+print(f"La partie est terminée, vous avez vaincu {player.fights_won} monstres.")
+reset_game()
 encounter_monster()
-
