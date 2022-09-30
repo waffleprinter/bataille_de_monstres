@@ -7,9 +7,9 @@ class Player:
     battles_lost = 0
     
     def reset(self):
-        health = 20
-        battles_won = 0
-        battles_lost = 0
+        self.health = 20
+        self.battles_won = 0
+        self.battles_lost = 0
 
 class Monster:
     def __init__(self, strength=None):
@@ -67,6 +67,7 @@ def quit_game():
 def reset_game():
     print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.")
     player.reset()
+    print(player.health)
     monster.reset()
     
 
