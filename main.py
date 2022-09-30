@@ -61,3 +61,4 @@ player = Player()
 monster = Monster()
 
 encounter_monster()
+
