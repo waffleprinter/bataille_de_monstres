@@ -3,15 +3,15 @@ import random
 
 class Player:
     health = 20
-    fights_won = 0
-    fights_lost = 0
+    battles_won = 0
+    battles_lost = 0
         
 
 class Monster:
     def __init__(self, strength=None):
         self.strength = strength if strength else random.randint(1, 5)
 
-    def new_monster(self, strength=None):
+    def reset(self, strength=None):
         self.strength = strength if strength else random.randint(1, 5)
 
 
@@ -41,7 +41,7 @@ def encounter_monster():
 
 def run_away():
     player.health -= 1
-    monster.new_monster()
+    monster.reset()
     print(f"Niveau de vie: {player.health}\n")
 
 def list_rules():
