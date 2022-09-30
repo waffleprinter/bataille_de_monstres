@@ -57,18 +57,8 @@ def list_rules():
 def quit_game():
     print("Merci et au revoir...")
 
-    
-def reset_game():
-    player.health = 20
-    player.fights_won = 0
-    player.fights_lost = 0
-    
 
 player = Player()
 monster = Monster()
 
-while player.health > 0:
-    encounter_monster()
-print(f"La partie est terminée, vous avez vaincu {player.fights_won} monstres.")
-reset_game()
 encounter_monster()
