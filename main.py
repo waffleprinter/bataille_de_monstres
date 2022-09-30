@@ -65,7 +65,7 @@ def quit_game():
     
 
 def reset_game():
-    print(f"La partie est terminée, vous avez vaincu {battles_won} monstres.")
+    print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.")
     player.reset()
     monster.reset()
     
