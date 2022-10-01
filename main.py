@@ -5,13 +5,13 @@ class Player:
     health = 20
     battles_won = 0
     battles_lost = 0
-    
+
     def reset(self):
         self.health = 20
         self.battles_won = 0
         self.battles_lost = 0
 
-        
+
 class Monster:
     def __init__(self, strength=None):
         self.strength = strength if strength else random.randint(1, 5)
@@ -48,7 +48,7 @@ def run_away():
         monster.reset()
         print(f"Niveau de vie: {player.health}\n")
 
-        
+
 def list_rules():
     print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.\n"
           "Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n"
@@ -59,17 +59,16 @@ def list_rules():
           "L’usager peut combattre ou éviter chaque adversaire, dans le "
           "cas de l’évitement, il y a une pénalité de 1 point de vie.\n")
 
-    
+
 def quit_game():
     print("Merci et au revoir...")
-    
+
 
 def reset_game():
     print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.")
     player.reset()
-    print(player.health)
     monster.reset()
-    
+
 
 player = Player()
 monster = Monster()
