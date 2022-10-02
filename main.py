@@ -66,7 +66,7 @@ def fight_monster():
           f"Combat {player.battles_fought}: {player.battles_won} victoires vs {player.battles_lost} défaites.\n\n"
           f"Lancé du dé: {player.strength}.")
 
-    if player.strength < monster.strength:
+    if player.strength <= monster.strength:
         player.health -= monster.strength
         player.battles_lost += 1
         player.consecutive_wins = 0
