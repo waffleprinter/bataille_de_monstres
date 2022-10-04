@@ -13,11 +13,6 @@ class Player:
     def reroll(self):
         self.strength = random.randint(1, 6)
 
-    def die(self):
-        print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.\n")
-        monster.reroll()
-        player.reset()
-
     def reset(self):
         self.health = 20
         self.strength = random.randint(1, 6)
@@ -51,8 +46,9 @@ def fight_monster():
         player.consecutive_wins = 0
         print("Dernier combat: Défaite.\n"
               f"Niveau de vie: {player.health}.\n")
+              
         if player.health < 1:
-            player.die()
+            reset_game()
     else:
         player.health += monster.strength
         player.battles_won += 1
@@ -69,7 +65,7 @@ def run_away():
     player.health -= 1
 
     if player.health < 1:
-        player.die()
+        reset_game()
     else:
         print(f"Niveau de vie: {player.health}")
         monster.reroll()
@@ -92,8 +88,15 @@ def quit_game():
     print("Merci et au revoir...")
 
 
+def reset_game():
+        print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.\n")
+        monster.reroll()
+        player.reset()
+        
+        
 player = Player()
 monster = Monster()
+
 
 while True:
     print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}.")
