@@ -3,7 +3,7 @@ import random
 
 class Player:
     health = 20
-    strength = random.randint(1, 6)
+    strength = random.randint(1, 6) + random.randint(1, 6)
     battles_fought = 0
     battles_won = 0
     battles_lost = 0
@@ -11,7 +11,7 @@ class Player:
     recent_battle_status = None
 
     def reroll(self):
-        self.strength = random.randint(1, 6)
+        self.strength = random.randint(1, 6) + random.randint(1, 6)
 
     def die(self):
         print(f"La partie est terminée, vous avez vaincu {player.battles_won} monstres.\n")
@@ -20,7 +20,7 @@ class Player:
 
     def reset(self):
         self.health = 20
-        self.strength = random.randint(1, 6)
+        self.strength = random.randint(1, 6) + random.randint(1, 6)
         self.battles_fought = 0
         self.battles_won = 0
         self.battles_lost = 0
@@ -30,10 +30,10 @@ class Player:
 
 class Monster:
     def __init__(self):
-        self.strength = random.randint(1, 5)
+        self.strength = random.randint(1, 5) + random.randint(1, 5)
 
     def reroll(self):
-        self.strength = random.randint(1, 5)
+        self.strength = random.randint(1, 5) + random.randint(1, 5)
 
 
 def fight_monster():
