@@ -1,0 +1,69 @@
+import random
+
+
+class Player:
+    def __init__(self, health=20, strength=None):
+        self.health = health
+        self.strength = strength if strength else random.randint(1, 6)
+
+    def roll(self):
+        self.strength = random.randint(1, 6)
+
+    def reset(self):
+        self.__init__()
+
+
+class Monster:
+    def __init__(self, strength=None):
+        self.strength = strength if strength else random.randint(1, 5)
+
+    def roll(self):
+        self.strength = random.randint(1, 5)
+
+def run_away():
+    player.health -= 1
+    if player.health < 1:
+        player.reset()
+    else:
+        print(f"Niveau de vie: {player.health}")
+        monster.roll()
+
+
+def display_rules():
+    print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.\n"
+          "Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n"
+          "Une défaite a lieu lorsque la valeur du dé lancé par l’usager est "
+          "inférieure ou égale à la force de l’adversaire.\n"
+          "Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.\n"
+          ""
+          "La partie se termine lorsque les points de vie de l’usager tombent sous 0.\n"
+          ""
+          "L’usager peut combattre ou éviter chaque adversaire, dans le cas de "
+          "l’évitement, il y a une pénalité de 1 point de vie.\n")
+
+
+def quit_game():
+    print("Merci et au revoir...")
+
+
+player = Player()
+monster = Monster()
+play_game = True
+
+while play_game:
+    print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}")
+
+    action = int(input("Que voulez vous faire?\n"
+                       "  1. Combattre cet adversaire.\n"
+                       "  2. Contourner cet adversaire et aller ouvrir une autre porte.\n"
+                       "  3. Afficher les règles du jeu.\n"
+                       "  4. Quitter la partie.\n"))
+    if action == 1:
+        print("You fight the monster!")
+    elif action == 2:
+        run_away()
+    elif action == 3:
+        display_rules()
+    else:
+        quit_game()
+        play_game = False
