@@ -62,6 +62,11 @@ monster = Monster()
 play_game = True
 
 while play_game:
+    boss_fight = player.victories % 3 == 0 and player.victories != 0
+
+    if boss_fight:
+        print("Vous tombez face à face avec un BOSS!")
+
     print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}")
 
     action = int(input("Que voulez vous faire?\n"
