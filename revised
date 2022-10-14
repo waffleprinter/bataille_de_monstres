@@ -2,9 +2,12 @@ import random
 
 
 class Player:
-    def __init__(self, health=20, strength=None):
+    def __init__(self, health=20, strength=None, victories=0, defeats=0, consecutive_victories=0):
         self.health = health
-        self.strength = strength if strength else random.randint(1, 6)
+        self.strength = strength
+        self.victories = victories
+        self.defeats = defeats
+        self.consecutive_victories = consecutive_victories
 
     def roll(self):
         self.strength = random.randint(1, 6)
@@ -15,15 +18,17 @@ class Player:
 
 class Monster:
     def __init__(self, strength=None):
-        self.strength = strength if strength else random.randint(1, 5)
+        self.strength = strength
 
     def roll(self):
         self.strength = random.randint(1, 5)
 
+
 def run_away():
     player.health -= 1
+
     if player.health < 1:
-        player.reset()
+        reset_game()
     else:
         print(f"Niveau de vie: {player.health}")
         monster.roll()
@@ -44,6 +49,12 @@ def display_rules():
 
 def quit_game():
     print("Merci et au revoir...")
+
+
+def reset_game():
+    print(f"La partie est terminée, vous avez vaincu {player.victories} monstre(s).")
+    player.reset()
+    monster.roll()
 
 
 player = Player()
