@@ -66,8 +66,8 @@ while play_game:
 
     if boss_fight:
         print("Vous tombez face à face avec un BOSS!")
-
-    print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}")
+    else:
+        print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}")
 
     action = int(input("Que voulez vous faire?\n"
                        "  1. Combattre cet adversaire.\n"
