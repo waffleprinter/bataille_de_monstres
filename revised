@@ -74,22 +74,18 @@ def fight_monster(is_boss):
     monster.roll()
 
 
-
-
-
 def run_away(is_boss):
     player.health -= 1
 
     if player.health < 1:
         reset_game()
-
+        
     else:
+        print(f"Niveau de vie: {player.health}.\n")
+        
         if is_boss:
             print("Le boss ne vous laisse pas passer!")
-            print(f"Niveau de vie: {player.health}.\n")
-
         else:
-            print(f"Niveau de vie: {player.health}.\n")
             monster.roll()
 
 
