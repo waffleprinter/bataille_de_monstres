@@ -2,49 +2,52 @@ import random
 
 
 class Player:
-    def __init__(self, health=20, strength=random.randint(1, 6), victories=0, defeats=0, consecutive_victories=0,
-                 battles_fought=0, battle_status=None):
+    def __init__(self, health=20, strength=None, victories=0, defeats=0, consecutive_victories=0,
+                 battles_fought=0, battle_status=None, adversaries_encountered=0):
         self.health = health
-        self.strength = strength
+        self.strength = strength if strength else random.randint(1, 6) + random.randint(1, 6)
         self.victories = victories
         self.defeats = defeats
         self.consecutive_victories = consecutive_victories
         self.battles_fought = battles_fought
         self.battle_status = battle_status
-
-    def roll(self):
-        self.strength = random.randint(1, 6)
+        self.adversaries_encountered = adversaries_encountered
 
     def reset(self):
         self.health = 20
-        self.strength = random.randint(1, 6)
+        self.strength = random.randint(1, 6) + random.randint(1, 6)
         self.victories = 0
         self.defeats = 0
         self.consecutive_victories = 0
         self.battles_fought = 0
         self.battle_status = None
+        self.adversaries_encountered = 0
+
+    def roll(self):
+        self.strength = random.randint(1, 6) + random.randint(1, 6)
 
 
 class Monster:
-    def __init__(self, strength=random.randint(1, 5)):
-        self.strength = strength
-
-    def roll(self):
-        self.strength = random.randint(1, 5)
+    def __init__(self, strength=None):
+        self.strength = strength if strength else random.randint(1, 5) + random.randint(1, 5)
 
     def reset(self):
-        self.strength = random.randint(1, 5)
+        self.strength = random.randint(1, 5) + random.randint(1, 5)
 
 
 def fight_monster(is_boss):
-    x = 0  #THIS IS SUPPOSED TO BE THE ADVERSARY NUMBER
+    player.adversaries_encountered += 1
     player.battles_fought += 1
 
-    print(f"Adversaire: {x}.\n"
-          f"Force de l'adversaire: {monster.strength}.\n"
-          f"Niveau de vie de l'usager: {player.health}.\n"
-          f"Combat {player.battles_fought}: {player.victories} vs {player.defeats}.\n"
-          f"Lancé du dé: {player.strength}.\n")
+    if is_boss:
+        print("\nVoici le BOSS!... Bonne chance.")
+        monster.strength = random.randint(4, 5) + random.randint(4, 5)
+
+    print(f"\nAdversaire: {player.adversaries_encountered}."
+          f"\nForce de l'adversaire: {monster.strength}."
+          f"\nNiveau de vie de l'usager: {player.health}."
+          f"\nCombat {player.battles_fought}: {player.victories} vs {player.defeats}."
+          f"\nLancé du dé: {player.strength}.")
 
     if player.strength > monster.strength:
         player.health += monster.strength
@@ -52,10 +55,10 @@ def fight_monster(is_boss):
         player.consecutive_victories += 1
         player.battle_status = "Victoire"
 
-        print(f"Dernier combat: {player.battle_status}")
+        print(f"\nDernier combat: {player.battle_status}.")
 
-        print(f"Niveau de vie: {player.health}.\n"
-              f"Nombre de victoires consécutives: {player.consecutive_victories}\n")
+        print(f"Niveau de vie: {player.health}."
+              f"\nNombre de victoires consécutives: {player.consecutive_victories}.")
 
     else:
         player.health -= monster.strength
@@ -63,56 +66,55 @@ def fight_monster(is_boss):
         player.consecutive_victories = 0
         player.battle_status = "Défaite"
 
-        print(f"Dernier combat: {player.battle_status}")
+        print(f"\nDernier combat: {player.battle_status}.")
 
         if player.health < 1:
             reset_game()
         else:
-            print(f"Niveau de vie: {player.health}.\n")
+            print(f"Niveau de vie: {player.health}.")
 
     player.roll()
-    monster.roll()
+    monster.reset()
 
 
 def run_away(is_boss):
+    player.adversaries_encountered += 1
     player.health -= 1
 
     if player.health < 1:
         reset_game()
 
     else:
-        print(f"Niveau de vie: {player.health}.")
+        print(f"\nNiveau de vie: {player.health}.")
 
         if is_boss:
-            print("Le boss ne vous laisse pas passer!\n")
+            print("Le BOSS! ne vous laisse pas passer!")
         else:
-            monster.roll()
+            monster.reset()
 
 
 def display_rules():
-    print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire.\n"
-          "Dans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire.\n"
-          "Une défaite a lieu lorsque la valeur du dé lancé par l’usager est "
-          "inférieure ou égale à la force de l’adversaire.\n"
-          "Dans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire.\n"
-          ""
-          "La partie se termine lorsque les points de vie de l’usager tombent sous 0.\n"
-          ""
-          "L’usager peut combattre ou éviter chaque adversaire, dans le cas de "
-          "l’évitement, il y a une pénalité de 1 point de vie.\n")
+    print("\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
+          "\nDans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire."
+          "\nUne défaite a lieu lorsque la valeur du dé lancé par l’usager est "
+          "inférieure ou égale à la force de l’adversaire."
+          "\nDans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire."
+          "\n\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0."
+          "\nL’usager peut combattre ou éviter chaque adversaire, dans le cas de "
+          "l’évitement, il y a une pénalité de 1 point de vie.")
 
 
 def quit_game():
-    print("Merci et au revoir...")
+    print("\nMerci et au revoir...")
 
 
 def reset_game():
-    print(f"La partie est terminée, vous avez vaincu {player.victories} monstre(s).\n")
+    print(f"\nLa partie est terminée, vous avez vaincu {player.victories} monstre(s).")
     player.reset()
     monster.reset()
 
 
-player = Player(20, 1 , 3)
+player = Player()
 monster = Monster()
 play_game = True
 
@@ -120,15 +122,15 @@ while play_game:
     boss_fight = player.victories % 3 == 0 and player.victories != 0
 
     if boss_fight:
-        print("Vous tombez face à face avec un BOSS!")
+        print("\nVous tombez face à face avec un BOSS!.")
     else:
-        print(f"Vous tombez face à face avec un monstre de difficulté {monster.strength}")
+        print(f"\nVous tombez face à face avec un monstre de difficulté {monster.strength}")
 
-    action = int(input("Que voulez vous faire?\n"
-                       "  1. Combattre cet adversaire.\n"
-                       "  2. Contourner cet adversaire et aller ouvrir une autre porte.\n"
-                       "  3. Afficher les règles du jeu.\n"
-                       "  4. Quitter la partie.\n"))
+    action = int(input("\nQue voulez vous faire?"
+                       "\n  1. Combattre cet adversaire."
+                       "\n  2. Contourner cet adversaire et aller ouvrir une autre porte."
+                       "\n  3. Afficher les règles du jeu."
+                       "\n  4. Quitter la partie."))
     if action == 1:
         fight_monster(boss_fight)
     elif action == 2:
@@ -138,3 +140,4 @@ while play_game:
     else:
         quit_game()
         play_game = False
+
