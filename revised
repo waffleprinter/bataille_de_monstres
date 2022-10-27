@@ -55,9 +55,8 @@ def fight_monster(is_boss):
         player.consecutive_victories += 1
         player.battle_status = "Victoire"
 
-        print(f"\nDernier combat: {player.battle_status}.")
-
-        print(f"Niveau de vie: {player.health}."
+        print(f"\nDernier combat: {player.battle_status}."
+              f"\nNiveau de vie: {player.health}."
               f"\nNombre de victoires consécutives: {player.consecutive_victories}.")
 
     else:
@@ -104,10 +103,6 @@ def display_rules():
           "l’évitement, il y a une pénalité de 1 point de vie.")
 
 
-def quit_game():
-    print("\nMerci et au revoir...")
-
-
 def reset_game():
     print(f"\nLa partie est terminée, vous avez vaincu {player.victories} monstre(s).")
     player.reset()
@@ -138,6 +133,5 @@ while play_game:
     elif action == 3:
         display_rules()
     else:
-        quit_game()
+        print("\nMerci et au revoir...")
         play_game = False
-
