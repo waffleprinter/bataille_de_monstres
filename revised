@@ -1,3 +1,9 @@
+"""
+Jacques-Conrad Calagui-Painchaud, 405
+TP3 - Combat des monstres
+This is a game where the player will fight monsters (by rolling two dice) until they meet their untimely demise.
+"""
+
 import random
 
 
@@ -14,6 +20,10 @@ class Player:
         self.adversaries_encountered = adversaries_encountered
 
     def reset(self):
+        """
+        Sets all the attributes to their original values.
+        :return: None
+        """
         self.health = 20
         self.strength = random.randint(1, 6) + random.randint(1, 6)
         self.victories = 0
@@ -24,6 +34,10 @@ class Player:
         self.adversaries_encountered = 0
 
     def roll(self):
+        """
+        Sets the player's strength to the sum of two six-sided die.
+        :return:
+        """
         self.strength = random.randint(1, 6) + random.randint(1, 6)
 
 
@@ -32,10 +46,22 @@ class Monster:
         self.strength = strength if strength else random.randint(1, 5) + random.randint(1, 5)
 
     def reset(self):
+        """
+        Sets all the attributes to their original values.
+        :return:
+        """
         self.strength = random.randint(1, 5) + random.randint(1, 5)
 
 
 def fight_monster(is_boss):
+    """
+    The player fights the adversary. If monster is a boss, set the difficulty (strength) higher. Print all of
+    relevant information for the battle. If the player wins print all the relevant information and update the relevant
+    player attributes. If the player loses the battle, print all the relevant information and update the relevant player
+    attributes. Reset the game if the player's health falls below 1. Reroll the player and monster's strength.
+    :param is_boss: Whether the monster is a boss or not.
+    :return: None
+    """
     player.adversaries_encountered += 1
     player.battles_fought += 1
 
@@ -77,6 +103,12 @@ def fight_monster(is_boss):
 
 
 def run_away(is_boss):
+    """
+    Makes the player run away from the current monster and encounter a new one, resetting it's strength at the cost of
+    1 life (does not work on boss monsters). If the player's health falls below 1, the game will be reset.
+    :param is_boss: Whether the monster is a boss or not
+    :return: None
+    """
     player.adversaries_encountered += 1
     player.health -= 1
 
@@ -92,22 +124,24 @@ def run_away(is_boss):
             monster.reset()
 
 
-def display_rules():
-    print("\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."
-          "\nDans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire."
-          "\nUne défaite a lieu lorsque la valeur du dé lancé par l’usager est "
-          "inférieure ou égale à la force de l’adversaire."
-          "\nDans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire."
-          "\n\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0."
-          "\nL’usager peut combattre ou éviter chaque adversaire, dans le cas de "
-          "l’évitement, il y a une pénalité de 1 point de vie.")
-
-
 def reset_game():
+    """
+    Ends the game, prints the number of victories of the player. Resets all the player and monster values to normal.
+    :return: None
+    """
     print(f"\nLa partie est terminée, vous avez vaincu {player.victories} monstre(s).")
     player.reset()
     monster.reset()
 
+
+rules = "\nPour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l’adversaire."\
+        "\nDans ce cas, le niveau de vie de l’usager est augmenté de la force de l’adversaire."\
+        "\nUne défaite a lieu lorsque la valeur du dé lancé par l’usager est "\
+        "inférieure ou égale à la force de l’adversaire."\
+        "\nDans ce cas, le niveau de vie de l’usager est diminué de la force de l’adversaire."\
+        "\n\nLa partie se termine lorsque les points de vie de l’usager tombent sous 0."\
+        "\nL’usager peut combattre ou éviter chaque adversaire, dans le cas de "\
+        "l’évitement, il y a une pénalité de 1 point de vie."
 
 player = Player()
 monster = Monster()
@@ -131,7 +165,7 @@ while play_game:
     elif action == 2:
         run_away(boss_fight)
     elif action == 3:
-        display_rules()
+        print(rules)
     else:
         print("\nMerci et au revoir...")
         play_game = False
